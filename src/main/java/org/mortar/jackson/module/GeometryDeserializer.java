@@ -102,9 +102,14 @@ public abstract class GeometryDeserializer<T extends Geometry> extends JsonDeser
 		JsonNode zNode = ((JsonNode) coord.get("z"));
 		x = xNode != null ? xNode.asDouble() : 0;
 		y = yNode != null ? yNode.asDouble() : 0;
-		z = zNode != null ? zNode.asDouble() : 0;
+		Coordinate result;
+		if (zNode != null) {
+			z = zNode != null ? zNode.asDouble() : null;
+			result = new Coordinate(x, y, z);
+		} else {
+			result = new Coordinate(x, y);
+		}
 		// }
-		Coordinate result = new Coordinate(x, y, z);
 		return result;
 	}
 
